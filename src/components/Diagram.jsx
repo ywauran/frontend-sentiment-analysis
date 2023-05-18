@@ -273,7 +273,7 @@ const initialData = {
   negativeNaiveBayesAdaboost: initialState,
 };
 const Diagram = () => {
-  const [partition, setPartition] = useState("60:40");
+  const [partition, setPartition] = useState("70:30");
   const [data, setData] = useState([]);
   const [dataGeneral, setDataGeneral] = useState({
     labels: ["+NB", "-NB", "+NBA", "-NBA"],
@@ -490,8 +490,6 @@ const Diagram = () => {
             value: value,
           });
         });
-
-        console.log(data);
         const {
           positiveNaiveBayes,
           negativeNaiveBayes,
@@ -616,7 +614,7 @@ const Diagram = () => {
                 value={partition}
                 id=""
                 onChange={(e) => setPartition(e.target.value)}
-                className="font-medium w-full px-4 py-2"
+                className="w-full px-4 py-2 font-medium"
               >
                 <option value="60:40">60:40</option>
                 <option value="70:30">70:30</option>
@@ -625,22 +623,22 @@ const Diagram = () => {
               {/* <input
             type="text"
             placeholder="Tagar"
-            className="font-medium w-full px-4 py-2"
+            className="w-full px-4 py-2 font-medium"
           /> */}
             </div>
           </form>
         </div>
-        <div className="grid gap-4 md:grid-cols-2 mt-4">
-          <div className="shadow p-2">
+        <div className="grid gap-4 mt-4 md:grid-cols-2">
+          <div className="p-2 shadow">
             <Bar options={optionsGeneral} data={dataGeneral} />
           </div>
-          <div className="shadow p-2">
+          <div className="p-2 shadow">
             <Bar options={optionsCounseling} data={dataCounseling} />
           </div>
-          <div className="shadow p-2">
+          <div className="p-2 shadow">
             <Bar options={optionsService} data={dataService} />
           </div>
-          <div className="shadow p-2">
+          <div className="p-2 shadow">
             <Bar options={optionsPublicRelations} data={dataPublicRelations} />
           </div>
         </div>

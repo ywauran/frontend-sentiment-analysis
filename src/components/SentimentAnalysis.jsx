@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
+import { uid } from "uid";
+import { app } from "../config";
+import { set, ref, getDatabase } from "firebase/database";
 
+const db = getDatabase(app);
 const SentimentAnalysis = () => {
   const [text, setText] = useState("");
   const [data, setData] = useState([]);
   const [variable, setVariable] = useState("public-relations");
   const variables = [
+    {
+      option: "umum",
+      value: "general",
+    },
     {
       option: "kehumasan",
       value: "public-relations",
@@ -33,12 +41,20 @@ const SentimentAnalysis = () => {
       );
 
       setData([response.data, ...data]);
-      console.log(response.data);
+      addNewData(response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const addNewData = (data) => {
+    const uuid = uid();
+    set(ref(db, `/data/${uuid}`), {
+      ...data,
+      uuid,
+      variable,
+    });
+  };
   useEffect(() => {}, []);
 
   return (
@@ -82,11 +98,11 @@ const SentimentAnalysis = () => {
         </div>
       </div>
       <div className="flex justify-center mt-4">
-        <div className="relative shadow p-2 w-full px-6 overflow-x-auto">
+        <div className="relative w-full p-2 px-6 overflow-x-auto shadow">
           {data.length === 0 ? (
             <>
               <div>
-                <h3 className="text-center p-2">Data Kosong</h3>
+                <h3 className="p-2 text-center">Data Kosong</h3>
               </div>
             </>
           ) : (
