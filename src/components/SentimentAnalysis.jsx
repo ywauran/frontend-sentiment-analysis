@@ -4,6 +4,7 @@ import axios from "axios";
 import { uid } from "uid";
 import { app } from "../config";
 import { set, ref, getDatabase } from "firebase/database";
+import { Link } from "react-router-dom";
 
 const db = getDatabase(app);
 const SentimentAnalysis = () => {
@@ -28,13 +29,13 @@ const SentimentAnalysis = () => {
       value: "counseling",
     },
   ];
-  const header = ["Data", "Nilai", "Hasil"];
+  const header = ["Data", "Nilai", "Akurasi", "Hasil"];
 
   const sendData = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://127.0.0.1:5000/api/${variable}`,
+        `http://192.168.186.142:81/api/${variable}`,
         {
           text: text,
         }
@@ -60,8 +61,8 @@ const SentimentAnalysis = () => {
   return (
     <>
       <div className="flex flex-col space-y-3">
-        <div className="bg-[#F7F8F9] p-2 flex flex-col md:flex-row space-y-3 md:space-y-0 justify-between">
-          <div onSubmit={sendData} className="flex items-center">
+        <div className="bg-[#F7F8F9] p-2 flex flex-col md:flex-row space-x-4 space-y-3 md:space-y-0 justify-between">
+          <div onSubmit={sendData} className="flex items-center w-[70%]">
             <span className="bg-[#FFFFFF] py-3 px-2 cursor-pointer">
               <AiOutlineSearch />
             </span>
@@ -70,7 +71,7 @@ const SentimentAnalysis = () => {
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Cari analisis sentimen anda"
-              className="font-medium w-[320px] px-4 py-2"
+              className="w-full px-4 py-2 font-medium"
             />
           </div>
           <select
@@ -78,7 +79,7 @@ const SentimentAnalysis = () => {
             id=""
             value={variable}
             onChange={(e) => setVariable(e.target.value)}
-            className="px-3 w-max"
+            className="px-3  w-[30%]"
           >
             {variables.map((item, number) => (
               <option key={number + 1} value={item.value}>
@@ -127,6 +128,7 @@ const SentimentAnalysis = () => {
                       <td className="py-2">
                         {item.sentiment === 0 ? "-1" : "1"}
                       </td>
+                      <td className="py-2">{item.accuracy}</td>
                       <td className="py-2">
                         <p
                           className={`${

@@ -6,11 +6,10 @@ import IconSentiment from "../assets/ic_sentiment.png";
 import Header from "../components/Header";
 import SentimentAnalysisPage from "./SentimentAnalysisPage";
 import DiagramPage from "./DiagramPage";
+import CalculatePage from "./CalculatePage";
 
 const MainPage = () => {
-  const [page, setPage] = useState(1);
-  const [switched, setSwitched] = useState(false);
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [page, setPage] = useState(0);
   const [open, setOpen] = useState(false);
   let currentPage;
 
@@ -20,6 +19,14 @@ const MainPage = () => {
         <>
           <Header name="Analisis Sentimen" />
           <div className="p-4">
+            <div className="flex justify-end my-3">
+              <button
+                onClick={() => setPage(2)}
+                className="bg-[#196B30] text-[#FFFFFF] py-2 rounded-3xl px-8"
+              >
+                Lihat Perhitungan
+              </button>
+            </div>
             <SentimentAnalysisPage />
           </div>
         </>
@@ -35,9 +42,19 @@ const MainPage = () => {
         </>
       );
       break;
+    case 2:
+      currentPage = (
+        <>
+          <Header name="Perhitungan" />
+          <div className="p-4">
+            <CalculatePage />
+          </div>
+        </>
+      );
+      break;
     default:
       currentPage = (
-        <div className="font-bold grid place-content-center h-screen place-items-center">
+        <div className="grid h-screen font-bold place-content-center place-items-center">
           <h1 className="">Halaman tidak ditemukan</h1>
         </div>
       );
@@ -55,9 +72,9 @@ const MainPage = () => {
         <div
           className={`flex justify-between items-center p-2 border-b-2 border-[#F5F5F5]`}
         >
-          <div className="hidden md:flex items-center justify-center space-x-4">
+          <div className="items-center justify-center hidden space-x-4 md:flex">
             <img src={IconSentiment} alt="" className="" />
-            <h1 className="text-primary font-bold text-xl">Sentimen</h1>
+            <h1 className="text-xl font-bold text-primary">Sentimen</h1>
           </div>
           <div className={` mx-auto md:hidden`}>
             <RxHamburgerMenu
