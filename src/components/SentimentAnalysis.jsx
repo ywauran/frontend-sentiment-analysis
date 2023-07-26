@@ -5,6 +5,7 @@ import { uid } from "uid";
 import { app } from "../config";
 import { set, ref, getDatabase } from "firebase/database";
 import { Link } from "react-router-dom";
+import { ENDPOINT } from "../utils/endpoint";
 
 const db = getDatabase(app);
 const SentimentAnalysis = () => {
@@ -34,12 +35,9 @@ const SentimentAnalysis = () => {
   const sendData = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        `http://192.168.186.142:81/api/${variable}`,
-        {
-          text: text,
-        }
-      );
+      const response = await axios.post(`${ENDPOINT}/api/${variable}`, {
+        text: text,
+      });
 
       setData([response.data, ...data]);
       addNewData(response.data);

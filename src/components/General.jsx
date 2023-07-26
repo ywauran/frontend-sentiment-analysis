@@ -4,14 +4,13 @@ import Accordion from "./Accordion";
 import ConfusionMatrix from "./ConfusionMatrix";
 import Metrics from "./Metrics";
 import TextToken from "./TextToken";
+import { ENDPOINT } from "../utils/endpoint";
 
 const General = () => {
   const [dataGeneral, setDataGeneral] = useState(null);
   const fetchDataGeneral = async () => {
     try {
-      const response = await axios.get(
-        "http://192.168.1.2:81/calculate/general"
-      );
+      const response = await axios.get(`${ENDPOINT}/calculate/general`);
       setDataGeneral(response.data);
       console.log(response);
     } catch (error) {}

@@ -4,13 +4,14 @@ import Accordion from "./Accordion";
 import ConfusionMatrix from "./ConfusionMatrix";
 import Metrics from "./Metrics";
 import TextToken from "./TextToken";
+import { ENDPOINT } from "../utils/endpoint";
 
 const PublicRelations = () => {
   const [dataPublicRelations, setDataPublielations] = useState(null);
   const fetchDataPublicRelations = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.1.2:81/calculate/public-relations"
+        `${ENDPOINT}/calculate/public-relations`
       );
       setDataPublielations(response.data);
       console.log(response);

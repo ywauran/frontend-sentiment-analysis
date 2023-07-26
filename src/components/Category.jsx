@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Accordion from "./Accordion";
-import ConfusionMatrix from "./ConfusionMatrix";
 import Metrics from "./Metrics";
 import TextToken from "./TextToken";
 import ConfusionMatrixCategory from "./ConfusionMatrixCategory";
+import { ENDPOINT } from "../utils/endpoint";
 
 const Category = () => {
   const [dataCategory, setDataCategory] = useState(null);
   const fetchDataCategory = async () => {
     try {
-      const response = await axios.get(
-        "http://192.168.1.2:81/calculate/category"
-      );
+      const response = await axios.get(`${ENDPOINT}/calculate/category`);
       setDataCategory(response.data);
       console.log(response);
     } catch (error) {}
