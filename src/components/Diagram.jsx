@@ -607,9 +607,6 @@ const Diagram = () => {
         <div className="bg-[#F7F8F9] p-2">
           <form>
             <div className="flex items-center">
-              <span className="bg-[#FFFFFF] py-3 px-2 cursor-pointer">
-                <AiOutlineSearch />
-              </span>
               <select
                 value={partition}
                 id=""

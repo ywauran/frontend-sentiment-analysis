@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Accordion from "../components/Accordion";
 import General from "../components/General";
 import Service from "../components/Service";
 import PublicRelations from "../components/PublicRelations";
 import Counseling from "../components/Counseling";
 import Category from "../components/Category";
+import All from "../components/All";
 
 const CalculatePage = () => {
   return (
@@ -47,6 +48,14 @@ const CalculatePage = () => {
           content={
             <>
               <Category />
+            </>
+          }
+        />
+        <Accordion
+          title="Semua"
+          content={
+            <>
+              <All />
             </>
           }
         />

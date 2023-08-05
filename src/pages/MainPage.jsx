@@ -3,6 +3,7 @@ import { MdShowChart, MdOutlineBarChart } from "react-icons/md";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import IconSentiment from "../assets/ic_sentiment.png";
+import IconDJP from "../assets/ic_djp.png";
 import Header from "../components/Header";
 import SentimentAnalysisPage from "./SentimentAnalysisPage";
 import DiagramPage from "./DiagramPage";
@@ -18,7 +19,7 @@ const MainPage = () => {
       currentPage = (
         <>
           <Header name="Analisis Sentimen" />
-          <div className="p-4">
+          <div className="flex flex-col p-4 space-y-4">
             <div className="flex justify-end my-3">
               <button
                 onClick={() => setPage(2)}
@@ -35,7 +36,7 @@ const MainPage = () => {
     case 1:
       currentPage = (
         <>
-          <Header name="Diagram" />
+          <Header name="Diagram Batang" />
           <div className="p-4">
             <DiagramPage />
           </div>
@@ -67,14 +68,14 @@ const MainPage = () => {
       <div
         className={`${
           open ? "w-[55%]" : "w-[20%]"
-        } md:w-[15%] pr-2 h-screen border-r-2 border-[#F5F5F5]`}
+        } md:w-[15%] pr-2 h-screen border-r-2  border-[#F5F5F5]`}
       >
         <div
-          className={`flex justify-between items-center p-2 border-b-2 border-[#F5F5F5]`}
+          className={`flex justify-between items-center px-4 p-2 border-b-2 border-[#F5F5F5]`}
         >
-          <div className="items-center justify-center hidden space-x-4 md:flex">
-            <img src={IconSentiment} alt="" className="" />
-            <h1 className="text-xl font-bold text-primary">Sentimen</h1>
+          <div className="items-center justify-center hidden py-1 space-x-4 md:flex">
+            <img src={IconDJP} alt="" className="w-10 " />
+            <h1 className="text-xl font-bold text-primary">Sentimen DJP</h1>
           </div>
           <div className={` mx-auto md:hidden`}>
             <RxHamburgerMenu
@@ -123,7 +124,7 @@ const MainPage = () => {
                     page === 1 ? "text-[#FFFFFF]" : null
                   } text-xs font-bold`}
                 >
-                  Hologram
+                  Diagram Batang
                 </h4>
               </li>
             </ul>
@@ -172,7 +173,7 @@ const MainPage = () => {
                       page === 1 ? "text-[#FFFFFF]" : "text-primary"
                     } text-xs font-bold`}
                   >
-                    Hologram
+                    Diagram Batang
                   </h4>
                 </li>
               </ul>

@@ -23,7 +23,10 @@ const Category = () => {
   return (
     <>
       {dataCategory === null ? (
-        <p>Belum ada data</p>
+        <div className="flex flex-col items-center justify-center h-[400px]">
+          <span className="loading loading-spinner loading-lg bg-gradient-to-r from-[#17415F]"></span>
+          <p className="mt-4 tex-center">Mohon tunggu sebentar ya.</p>
+        </div>
       ) : (
         <>
           <div className="flex flex-col space-y-4">

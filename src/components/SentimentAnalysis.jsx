@@ -14,19 +14,19 @@ const SentimentAnalysis = () => {
   const [variable, setVariable] = useState("public-relations");
   const variables = [
     {
-      option: "umum",
+      option: "Umum",
       value: "general",
     },
     {
-      option: "kehumasan",
+      option: "Kehumasan",
       value: "public-relations",
     },
     {
-      option: "pelayanan",
+      option: "Pelayanan",
       value: "service",
     },
     {
-      option: "penyuluhan",
+      option: "Penyuluhan",
       value: "counseling",
     },
   ];
@@ -58,17 +58,14 @@ const SentimentAnalysis = () => {
 
   return (
     <>
-      <div className="flex flex-col space-y-3">
+      <div className="flex flex-col space-y-7">
         <div className="bg-[#F7F8F9] p-2 flex flex-col md:flex-row space-x-4 space-y-3 md:space-y-0 justify-between">
-          <div onSubmit={sendData} className="flex items-center w-[70%]">
-            <span className="bg-[#FFFFFF] py-3 px-2 cursor-pointer">
-              <AiOutlineSearch />
-            </span>
+          <div onSubmit={sendData} className="flex items-center w-[80%]">
             <input
               type="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Cari analisis sentimen anda"
+              placeholder="Masukan Kalimat Sentimen Anda"
               className="w-full px-4 py-2 font-medium"
             />
           </div>
@@ -77,7 +74,7 @@ const SentimentAnalysis = () => {
             id=""
             value={variable}
             onChange={(e) => setVariable(e.target.value)}
-            className="px-3  w-[30%]"
+            className="px-3  w-[20%]"
           >
             {variables.map((item, number) => (
               <option key={number + 1} value={item.value}>
@@ -90,7 +87,7 @@ const SentimentAnalysis = () => {
         <div className="flex justify-center">
           <button
             onClick={(e) => sendData(e)}
-            className="bg-primary text-[#FFFFFF] rounded-full py-2 px-10"
+            className="bg-primary text-[#FFFFFF] w-56 rounded-full py-2 px-10"
           >
             Lihat Hasil
           </button>

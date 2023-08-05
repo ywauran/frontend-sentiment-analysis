@@ -6,23 +6,23 @@ import Metrics from "./Metrics";
 import TextToken from "./TextToken";
 import { ENDPOINT } from "../utils/endpoint";
 
-const General = () => {
-  const [dataGeneral, setDataGeneral] = useState(null);
-  const fetchDataGeneral = async () => {
+const All = () => {
+  const [dataAll, setDataAll] = useState(null);
+  const fetchDataAll = async () => {
     try {
-      const response = await axios.get(`${ENDPOINT}/calculate/general`);
-      setDataGeneral(response.data);
+      const response = await axios.get(`${ENDPOINT}/calculate/all`);
+      setDataAll(response.data);
       console.log(response);
     } catch (error) {}
   };
 
   useEffect(() => {
-    fetchDataGeneral();
+    fetchDataAll();
   }, []);
 
   return (
     <>
-      {dataGeneral === null ? (
+      {dataAll === null ? (
         <div className="flex flex-col items-center justify-center h-[400px]">
           <span className="loading loading-spinner loading-lg bg-gradient-to-r from-[#17415F]"></span>
           <p className="mt-4 tex-center">Mohon tunggu sebentar ya.</p>
@@ -42,7 +42,7 @@ const General = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataGeneral.df_original.map((item, index) => (
+                      {dataAll.df_original.map((item, index) => (
                         <tr key={index}>
                           <td>{item.label}</td>
                           <td>{item.tweet}</td>
@@ -65,7 +65,7 @@ const General = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataGeneral.df_lower_case.map((item, index) => (
+                      {dataAll.df_lower_case.map((item, index) => (
                         <tr key={index}>
                           <td>{item.label}</td>
                           <td>{item.tweet}</td>
@@ -88,7 +88,7 @@ const General = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataGeneral.df_cleaning.map((item, index) => (
+                      {dataAll.df_cleaning.map((item, index) => (
                         <tr key={index}>
                           <td>{item.label}</td>
                           <td>{item.tweet}</td>
@@ -111,7 +111,7 @@ const General = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataGeneral.df_token.map((item, index) => (
+                      {dataAll.df_token.map((item, index) => (
                         <tr key={index}>
                           <td>{item.label}</td>
                           <td>[{<TextToken tokenizeText={item.tweet} />}]</td>
@@ -134,7 +134,7 @@ const General = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataGeneral.df_stopwords.map((item, index) => (
+                      {dataAll.df_stopwords.map((item, index) => (
                         <tr key={index}>
                           <td>{item.label}</td>
                           <td>[{<TextToken tokenizeText={item.tweet} />}]</td>
@@ -157,7 +157,7 @@ const General = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {dataGeneral.df_stemming.map((item, index) => (
+                      {dataAll.df_stemming.map((item, index) => (
                         <tr key={index}>
                           <td>{item.label}</td>
                           <td>{item.tweet}</td>
@@ -181,8 +181,8 @@ const General = () => {
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{dataGeneral.train_samples}</td>
-                        <td>{dataGeneral.test_samples}</td>
+                        <td>{dataAll.train_samples}</td>
+                        <td>{dataAll.test_samples}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -191,19 +191,19 @@ const General = () => {
             />
             <Accordion
               title="Matriks Kebingungan Naive Bayes"
-              content={<ConfusionMatrix data={dataGeneral.nb_cm} />}
+              content={<ConfusionMatrix data={dataAll.nb_cm} />}
             />
             <Accordion
               title="Matriks Kebingungan Adaboost"
-              content={<ConfusionMatrix data={dataGeneral.adaboost_cm} />}
+              content={<ConfusionMatrix data={dataAll.adaboost_cm} />}
             />
             <Accordion
               title="Metrik Naive Bayes"
-              content={<Metrics data={dataGeneral.nb_metrics} />}
+              content={<Metrics data={dataAll.nb_metrics} />}
             />
             <Accordion
               title="Metrik Adaboost"
-              content={<Metrics data={dataGeneral.adaboost_metrics} />}
+              content={<Metrics data={dataAll.adaboost_metrics} />}
             />
           </div>
         </>
@@ -212,4 +212,4 @@ const General = () => {
   );
 };
 
-export default General;
+export default All;
