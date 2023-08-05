@@ -258,6 +258,65 @@ export const optionsPublicRelations = {
   },
 };
 
+export const optionsAll = {
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: "Semua",
+      color: "#828282",
+      align: "start",
+      font: {
+        size: 12,
+        weight: "bold",
+      },
+    },
+    subtitle: {
+      display: true,
+      color: "#0B1354",
+      align: "start",
+      font: {
+        size: 30,
+        weight: "bold",
+      },
+      padding: {
+        bottom: 15,
+      },
+    },
+    legend: {
+      position: "bottom",
+      align: "start",
+      labels: {
+        boxHeight: 10,
+        boxWidth: 20,
+      },
+    },
+  },
+  scales: {
+    y: {
+      ticks: {
+        color: "#4F4F4F",
+        beginAtZero: true,
+        font: {
+          size: 12,
+        },
+      },
+    },
+    x: {
+      ticks: {
+        color: "#4F4F4F",
+        beginAtZero: true,
+        font: {
+          size: 10,
+        },
+      },
+    },
+  },
+  layout: {
+    padding: 15,
+  },
+};
+
 const db = getDatabase(app);
 
 const initialState = {
@@ -356,6 +415,27 @@ const Diagram = () => {
     ],
   });
 
+  const [dataAll, setDataAll] = useState({
+    labels: ["+NB", "-NB", "+NBA", "-NBA"],
+    datasets: [
+      {
+        label: "Akurasi",
+        data: [],
+        backgroundColor: "#63ABFD",
+      },
+      {
+        label: "Presisi",
+        data: [],
+        backgroundColor: "#99FFA4",
+      },
+      {
+        label: "Recall",
+        data: [],
+        backgroundColor: "rgb(230, 151, 255)",
+      },
+    ],
+  });
+
   const fetchDataGeneral = () => {
     try {
       const dbRef = ref(db, `partition/${partition}`);
@@ -376,7 +456,7 @@ const Diagram = () => {
           negativeNaiveBayes,
           positiveNaiveBayesAdaboost,
           negativeNaiveBayesAdaboost,
-        } = data[1].value;
+        } = data[2].value;
 
         setDataGeneral({
           ...dataGeneral,
@@ -436,7 +516,7 @@ const Diagram = () => {
           negativeNaiveBayes,
           positiveNaiveBayesAdaboost,
           negativeNaiveBayesAdaboost,
-        } = data[3].value;
+        } = data[4].value;
 
         setDataService({
           ...dataService,
@@ -495,7 +575,7 @@ const Diagram = () => {
           negativeNaiveBayes,
           positiveNaiveBayesAdaboost,
           negativeNaiveBayesAdaboost,
-        } = data[2].value;
+        } = data[3].value;
 
         setDataPublicRelations({
           ...dataPublicRelations,
@@ -555,7 +635,7 @@ const Diagram = () => {
           negativeNaiveBayes,
           positiveNaiveBayesAdaboost,
           negativeNaiveBayesAdaboost,
-        } = data[0].value;
+        } = data[1].value;
 
         setDataCounseling({
           ...dataCounseling,
@@ -595,11 +675,72 @@ const Diagram = () => {
     }
   };
 
+  const fetchDataAll = () => {
+    try {
+      const dbRef = ref(db, `partition/${partition}`);
+      onValue(dbRef, (snapshot) => {
+        const data = [];
+        snapshot.forEach((childSnapshot) => {
+          const key = childSnapshot.key;
+          const value = childSnapshot.val();
+
+          data.push({
+            key: key,
+            value: value,
+          });
+        });
+
+        const {
+          positiveNaiveBayes,
+          negativeNaiveBayes,
+          positiveNaiveBayesAdaboost,
+          negativeNaiveBayesAdaboost,
+        } = data[0].value;
+
+        setDataAll({
+          ...dataAll,
+          datasets: [
+            {
+              ...dataAll.datasets[0],
+              data: [
+                positiveNaiveBayes.accuracy,
+                negativeNaiveBayes.accuracy,
+                positiveNaiveBayesAdaboost.accuracy,
+                negativeNaiveBayesAdaboost.accuracy,
+              ],
+            },
+            {
+              ...dataAll.datasets[1],
+              data: [
+                positiveNaiveBayes.precision,
+                negativeNaiveBayes.precision,
+                positiveNaiveBayesAdaboost.precision,
+                negativeNaiveBayesAdaboost.precision,
+              ],
+            },
+            {
+              ...dataAll.datasets[2],
+              data: [
+                positiveNaiveBayes.recall,
+                negativeNaiveBayes.recall,
+                positiveNaiveBayesAdaboost.recall,
+                negativeNaiveBayesAdaboost.recall,
+              ],
+            },
+          ],
+        });
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchDataGeneral();
     fetchDataService();
     fetchDataPublicRelations();
     fetchDataCounseling();
+    fetchDataAll();
   }, [partition]);
   return (
     <>
@@ -637,6 +778,9 @@ const Diagram = () => {
           </div>
           <div className="p-2 shadow">
             <Bar options={optionsPublicRelations} data={dataPublicRelations} />
+          </div>
+          <div className="p-2 shadow">
+            <Bar options={optionsAll} data={dataAll} />
           </div>
         </div>
       </div>

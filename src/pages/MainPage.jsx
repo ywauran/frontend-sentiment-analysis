@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import SentimentAnalysisPage from "./SentimentAnalysisPage";
 import DiagramPage from "./DiagramPage";
 import CalculatePage from "./CalculatePage";
+import CopyRight from "../components/CopyRight";
 
 const MainPage = () => {
   const [page, setPage] = useState(0);
