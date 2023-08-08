@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { MdShowChart, MdOutlineBarChart } from "react-icons/md";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
-import IconSentiment from "../assets/ic_sentiment.png";
 import IconDJP from "../assets/ic_djp.png";
 import Header from "../components/Header";
 import SentimentAnalysisPage from "./SentimentAnalysisPage";
 import DiagramPage from "./DiagramPage";
 import CalculatePage from "./CalculatePage";
-import CopyRight from "../components/CopyRight";
+import InformationCategoryPage from "./InformationCategoryPage";
 
 const MainPage = () => {
   const [page, setPage] = useState(0);
@@ -21,7 +19,13 @@ const MainPage = () => {
         <>
           <Header name="Analisis Sentimen" />
           <div className="flex flex-col p-4 space-y-4">
-            <div className="flex justify-end my-3">
+            <div className="flex justify-between my-3">
+              <button
+                onClick={() => setPage(3)}
+                className="bg-[#B5D0BD] text-[#196B30] py-2 rounded-3xl px-8"
+              >
+                Lihat Perhitungan
+              </button>
               <button
                 onClick={() => setPage(2)}
                 className="bg-[#196B30] text-[#FFFFFF] py-2 rounded-3xl px-8"
@@ -50,6 +54,16 @@ const MainPage = () => {
           <Header name="Perhitungan" />
           <div className="p-4">
             <CalculatePage />
+          </div>
+        </>
+      );
+      break;
+    case 3:
+      currentPage = (
+        <>
+          <Header name="Info Kategori" />
+          <div className="p-4">
+            <InformationCategoryPage />
           </div>
         </>
       );
